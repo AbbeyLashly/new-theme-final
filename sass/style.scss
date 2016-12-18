@@ -1,0 +1,197 @@
+/*!
+Theme Name: punchtheme
+Theme URI: http://underscores.me/
+Author: Punch Newspapers
+Author URI: http://punchng.com
+Description: Description
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: punchtheme
+Tags:
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+punchtheme is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of
+Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
+*/
+
+
+
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Normalize
+# Typography
+# Elements
+# Forms
+# Navigation
+	## Links
+	## Menus
+# Accessibility
+# Alignments
+# Clearings
+# Widgets
+# Content
+	## Posts and pages
+	## Comments
+# Infinite scroll
+# Media
+	## Captions
+	## Galleries
+--------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+
+@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:300,400,500,700,900');
+
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+
+	box-sizing: border-box;
+}
+
+html, body  {
+	height: 100%;
+}
+
+@import "variables-site/variables-site";
+@import "mixins/mixins-master";
+
+/*--------------------------------------------------------------
+# Normalize
+--------------------------------------------------------------*/
+@import "bourbon/bourbon"; // http://bourbon.io/
+@import "bootstrap/bootstrap";
+@import "normalize";
+
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+@import "typography/typography";
+
+/*--------------------------------------------------------------
+# Elements
+--------------------------------------------------------------*/
+@import "elements/elements";
+
+/*--------------------------------------------------------------
+# Forms
+--------------------------------------------------------------*/
+@import "forms/forms";
+
+/*--------------------------------------------------------------
+# Navigation
+--------------------------------------------------------------*/
+@import "navigation/navigation";
+
+/*--------------------------------------------------------------
+# Accessibility
+--------------------------------------------------------------*/
+@import "modules/accessibility";
+
+/*--------------------------------------------------------------
+# Alignments
+--------------------------------------------------------------*/
+@import "modules/alignments";
+
+/*--------------------------------------------------------------
+# Clearings
+--------------------------------------------------------------*/
+@import "modules/clearings";
+
+/*--------------------------------------------------------------
+# Widgets
+--------------------------------------------------------------*/
+@import "site/secondary/widgets";
+@import "site/secondary/headers";
+
+/*--------------------------------------------------------------
+# Content
+--------------------------------------------------------------*/
+@import "site/site";
+
+/*--------------------------------------------------------------
+# Infinite scroll
+--------------------------------------------------------------*/
+@import "modules/infinite-scroll";
+
+/*--------------------------------------------------------------
+# Media
+--------------------------------------------------------------*/
+@import "media/media";
+@import "blurry.load";
+
+
+@media only screen and (max-width:90em){
+  #pb-root{
+    max-width:91.4% !important;
+  }
+}
+
+@media only screen and (max-width:75em){
+  #pb-root{
+    max-width:91.6% !important
+  }
+}
+
+@media only screen and (max-width:61.9375em){
+  #pb-root{
+    max-width:92.0% !important;
+    margin-top:1.0rem
+  }
+}
+body {
+  background: #fafafa;
+}
+
+
+
+
+
+
+
+.b-lazy {
+  max-width: 100%;
+  background-position: top center !important;
+  background-size: cover !important;
+  position: relative;
+  overflow: hidden;
+
+  .blurry {
+    background-position: top center !important;
+    background-size: cover !important;
+    @include position(absolute, 0 0 0 0);
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    transform: scale(1.1);
+    filter: blur(5px);
+  }
+
+  & > .blurry {
+    max-width: 100%;
+    opacity: 1;
+  }
+}
+
+.b-lazy.b-loaded {
+  //opacity: 1;
+
+  & > .blurry {
+    -webkit-transition: opacity 500ms ease-in-out;
+    -moz-transition: opacity 500ms ease-in-out;
+    -o-transition: opacity 500ms ease-in-out;
+    transition: opacity 500ms ease-in-out;
+    max-width: 100%;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,19 @@
+.title-header {
+  background: #ccc;
+  padding: 5px 10px 4px 24px;
+  font-size: em(11);
+  text-transform: uppercase;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  position: relative;
+
+  &:before {
+    @include position(absolute, 0 nil 0 10px);
+    margin: auto;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 10px;
+    background: rgba(#000, 0.2);
+  }
+}
