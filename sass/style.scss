@@ -46,10 +46,10 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 	## Galleries
 --------------------------------------------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+//@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
-
-@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+//@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:300,400,500,700,900');
 
 
 * {
@@ -60,7 +60,18 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 }
 
 html, body  {
+	width: 100%;
 	height: 100%;
+	font-size:100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-text-size-adjust: none;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	//transition: all .4s cubic-bezier(.645,.045,.355,1) !important;
 }
 
 @import "variables-site/variables-site";
@@ -72,6 +83,7 @@ html, body  {
 @import "bourbon/bourbon"; // http://bourbon.io/
 @import "bootstrap/bootstrap";
 @import "normalize";
+
 
 /*--------------------------------------------------------------
 # Typography
@@ -129,22 +141,22 @@ html, body  {
 --------------------------------------------------------------*/
 @import "media/media";
 @import "blurry.load";
-
+@import "plyr/plyr"; 
 
 @media only screen and (max-width:90em){
-  #pb-root{
+  #pb-root, .pb-root{
     max-width:91.4% !important;
   }
 }
 
 @media only screen and (max-width:75em){
-  #pb-root{
+  #pb-root, .pb-root{
     max-width:91.6% !important
   }
 }
 
 @media only screen and (max-width:61.9375em){
-  #pb-root{
+  #pb-root, .pb-root{
     max-width:92.0% !important;
     margin-top:1.0rem
   }
@@ -158,9 +170,8 @@ body {
 
 
 
-
 .b-lazy {
-  max-width: 100%;
+  //max-width: 100%;
   background-position: top center !important;
   background-size: cover !important;
   position: relative;
@@ -173,8 +184,9 @@ body {
     width: 100%;
     height: 100%;
     background: #ccc;
-    transform: scale(1.1);
-    filter: blur(5px);
+    @include transform(scale(1.1));
+		@include filter(blur(8px));
+
   }
 
   & > .blurry {
@@ -187,10 +199,7 @@ body {
   //opacity: 1;
 
   & > .blurry {
-    -webkit-transition: opacity 500ms ease-in-out;
-    -moz-transition: opacity 500ms ease-in-out;
-    -o-transition: opacity 500ms ease-in-out;
-    transition: opacity 500ms ease-in-out;
+		@include transition(opacity 500ms ease-in-out);
     max-width: 100%;
     opacity: 0;
   }

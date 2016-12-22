@@ -91,7 +91,7 @@
         ;(function() {
             // Initialize
 						var bLazy = new Blazy({
-							offset: 100,
+							offset: 30,
 							//container: '#scrolling-container',
 								breakpoints: [{
 								width: 420 // Max-width
@@ -109,12 +109,14 @@
 				});
         })();
     </script>
+		<script src="https://cdn.plyr.io/2.0.11/plyr.js"></script>
+		<script>plyr.setup();</script>
+		<!-- Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) -->
+		<script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
 
-<!--<script>
-$( document ).ready(function() {
-    $('.image-blur').blurryLoad();
-});
 
-</script>-->
+
+
+
 </body>
 </html>

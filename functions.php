@@ -7,6 +7,44 @@
  * @package punchtheme
  */
 
+
+ /** Author dropdown **/
+
+ !defined( 'ABSPATH' ) and exit;
+ add_filter( 'default_hidden_meta_boxes', 'add_author_dropdown', 20, 1 );
+
+ function add_author_dropdown ( $hidden )
+ {
+     foreach ( $hidden as $i => $metabox )
+     {
+         if ( 'authordiv' == $metabox )
+         {
+             unset ( $hidden[$i] );
+         }
+     }
+     return $hidden;
+ }
+
+ /**
+  * Register our sidebars and widgetized areas.
+  *
+  */
+ function arphabet_widgets_init() {
+
+ 	register_sidebar( array(
+ 		'name'          => 'Header Sidebar',
+ 		'id'            => 'home_right_1',
+ 		'before_widget' => '<div>',
+ 		'after_widget'  => '</div>',
+ 		'before_title'  => '<div class="title-header">',
+ 		'after_title'   => '</div>',
+ 	) );
+
+ }
+ add_action( 'widgets_init', 'arphabet_widgets_init' );
+
+
+
 if ( ! function_exists( 'punchtheme_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -20,7 +58,7 @@ if ( ! function_exists( 'punchtheme_setup' ) ) :
  if (!is_admin()) add_action("wp_enqueue_scripts", "my_jquery_enqueue", 11);
  function my_jquery_enqueue() {
     wp_deregister_script('jquery');
-    wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", false, null);
+    wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js", false, null);
     wp_enqueue_script('jquery');
  }
 
@@ -64,7 +102,12 @@ function punchtheme_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => esc_html__( 'Primary', 'punchtheme' ),
+    'section' => esc_html__( 'Section', 'punchtheme' ),
+    'Footer' => esc_html__( 'Footer', 'punchtheme' ),
 	) );
+
+
+
 
 	/*
 	 * Switch default core markup for search form, comment form, and comments
@@ -117,6 +160,7 @@ function punchtheme_widgets_init() {
 }
 add_action( 'widgets_init', 'punchtheme_widgets_init' );
 
+
 /**
  * Enqueue scripts and styles.
  */
@@ -127,6 +171,8 @@ function punchtheme_scripts() {
 	wp_enqueue_script( 'punchtheme-modernizr', get_template_directory_uri() . '/js/modernizr.js', array(), '20151215', false );
 	wp_enqueue_script( 'punchtheme-section', get_template_directory_uri() . '/js/section-nav.js', array('jquery'), '20151215', true );
 	wp_enqueue_script( 'punchtheme-blazy', get_template_directory_uri() . '/js/blazy.min.js', array('jquery'), '20151215', true );
+	wp_enqueue_script( 'punchtheme-plyr', get_template_directory_uri() . '/js/plyr.js', array('jquery'), '20151215', true );
+	wp_enqueue_script( 'punchtheme-demo', get_template_directory_uri() . '/js/demo.js', '20151215', true );
 	wp_enqueue_script( 'punchtheme-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -159,3 +205,6 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+
+require get_template_directory() . '/inc/punch-widget.php';

@@ -1,17 +1,53 @@
 .first-row {
   @include display(flex);
+
+  @include media-breakpoint-down(sm) {
+    display: block;
+  }
+}
+
+.hero-wrap {
+  @include media-breakpoint-down(sm) {
+    padding: 0px;
+  }
+}
+
+.hero-title {
+  font-family: "Playfair Display";
+  font-size: em(29);
+  line-height: 1.3;
+  margin: 5px 0 19px;
+  color: #333;
+  @include media-breakpoint-down(xs) {
+    font-size: em(24);
+  }
+
+  a {
+    color: #333;
+    transition: all .3s ease;
+
+    &:hover {
+      color: #c00;
+      text-decoration: none;
+    }
+  }
 }
 
 #hero {
   width: 100%;
-  height: 308px;
+  height: 284px;
   background: darken(#fafafa, 10);
   overflow: hidden;
   position: relative;
 
+  @include media-breakpoint-down(xs) {
+    height: 230px;
+  }
+
   &:after {
-    background-color: transparent;
-    background-image: linear-gradient(-160deg,transparent 0,rgba(0,0,0,.2) 50%,rgba(0,0,0,.7) 100%);
+    //background-color: transparent;
+    background: rgba(black, 0.2);
+    //background-image: linear-gradient(-160deg,transparent 0,rgba(0,0,0,.2) 50%,rgba(0,0,0,.7) 100%);
     width: 100%;
     height: 100%;
     content: '';
@@ -36,9 +72,10 @@
       margin: 0;
       font-size: em(26);
       line-height: 1.3;
-      font-family: 'Frank Ruhl Libre', sans-serif;
-      font-weight: 600;
-
+      //font-family: 'Frank Ruhl Libre', sans-serif;
+      font-family: 'Playfair Display', sans-serif;
+      font-weight: 100;
+      text-shadow: 1px 1px 5px #231f20;
     }
 
     .title-author {
@@ -47,6 +84,8 @@
 
       a {
         color: #c00;
+        -webkit-font-smoothing: antialiased !important;
+        font-weight: bold;
       }
     }
 
@@ -62,14 +101,27 @@
   //height: 160px;
   @include justify-content(space-between);
 
+  @include media-breakpoint-down(xs) {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 0px;
+  }
 
   &_image {
     height: 100px;
     position: relative;
 
+    @include media-breakpoint-down(xs) {
+      width: 60px;
+      float: left;
+      max-height: 50px;
+      margin-right: 5px;
+    }
+
     &:after {
       background-color: transparent;
-      background-image: linear-gradient(-160deg,transparent 0,rgba(0,0,0,.1) 50%,rgba(0,0,0,.3) 100%);
+      //background-image: linear-gradient(-160deg,transparent 0,rgba(0,0,0,.1) 50%,rgba(0,0,0,.3) 100%);
       width: 100%;
       height: 100%;
       content: '';
@@ -83,6 +135,32 @@
     background: white;
     width: 32.5%;
     position: relative;
+    overflow: hidden;
+
+    a {
+      color: #333;
+
+      @include media-breakpoint-down(xs) {
+        width: 100%;
+        @include display(flex);
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: #c00;
+      }
+    }
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+      margin-bottom: 6px;
+      padding: 0;
+      border-radius: 0px;
+      //border-bottom: 1px solid #F7F7F7;
+      border-left: 2px solid #ccc;
+      @include display(flex);
+      @include align-items(center);
+    }
 
     .title-box {
       //@include position(absolute, nil 0 5% 0);
@@ -91,9 +169,12 @@
       padding-top: 4px;
       width: 96%;
       z-index: 22;
-      //color: white;
-      font-size: em(12);
-      //font-family: 'Frank Ruhl Libre', sans-serif;
+      font-size: em(11);
+      font-weight: 600;
+      @include media-breakpoint-down(xs) {
+        padding: 0;
+        width: 100%;
+      }
     }
 
 
@@ -111,10 +192,30 @@
 
 
 ///////////////////// latest news ///////////////////
+.latest-news-wraper {
+
+  @include media-breakpoint-down(xs) {
+    padding: 0px;
+  }
+}
+.latest-news-row {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  @include media-breakpoint-down(xs) {
+    position: relative;
+    margin: 0px;
+  }
+}
+
 
 .latest-news {
   height: 100%;
   position: relative;
+  @include media-breakpoint-down(xs) {
+    margin-bottom: 20px;
+  }
 
   ul {
     height: calc(100% - 35px);
@@ -148,11 +249,54 @@
       -ms-flex-align: center;
       align-items: center;
       width: 100%;
-      padding: 0.9rem 20px;
+      padding: 0.9rem 14px 0.9rem 14px;
       border-bottom: 1px solid #F7F7F7;
       position: relative;
       border-left: 2px solid transparent;
       transition: all .4s ease;
+      font-weight: 600;
+
+      a {
+        color: #333;
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      &.read-more {
+        padding: 0px;
+        border: none;
+        //border-left: 2px solid darken(#c00, 10);
+        background: #F7F7F7;
+
+
+        a {
+          margin-top: 10px;
+          display: block;
+          width: 100%;
+          height: 30px;
+          background: #333;
+          margin-bottom: 2px;
+          text-align: center;
+          line-height: 30px;
+          font-size: em(10);
+          text-transform: uppercase;
+          border-radius: 3px;
+          color: #fff;
+          -webkit-font-smoothing: subpixel-antialiased !important;
+
+          @include media-breakpoint-down(xs) {
+            border-radius: 2px;
+            background: #c00;
+          }
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
 
       &:hover {
         border-left: 2px solid #c00;
@@ -164,6 +308,7 @@
         margin: 0;
         line-height: 1.5;
         transition: all .3s ease;
+        font-weight: 600;
 
         &:hover {
           color: #c00;
@@ -181,4 +326,183 @@
 
 
   }
+}
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+///////////////////// Sub Section Pane //////////////////////
+/////////////////////////////////////////////////////////////
+.sub-section-wrapper {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+///////////////////// Video Pane ///////////////////////
+/////////////////////////////////////////////////////////////
+
+.video-pane-wrapper {
+  background: #1a1a1a;
+  min-height: 400px;
+  margin-top: 20px;
+  padding: 20px 0 40px;
+
+  &_title {
+    margin-bottom: 20px;
+    color: rgba(#c00, 0.9);
+    font-weight: bold;
+    font-size: em(22);
+    text-transform: uppercase;
+
+    span {
+      font-weight: 100;
+      color: rgba(white, 0.8);
+    }
+  }
+}
+
+.video-pane {
+  width: 100%;
+  display: flex;
+
+}
+
+.video--playlist {
+  height: 100%;
+  background: white;
+  background: lighten(#1a1a1a, 5);
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      padding: 14px 14px;
+
+      a {
+        color: white;
+        font-size: em(12);
+      }
+    }
+  }
+}
+
+
+
+
+/////////////////////////////////////////////////////////////
+///////////////////// Categories Pane ///////////////////////
+/////////////////////////////////////////////////////////////
+
+.category-pane-wrapper {
+  @include media-breakpoint-down(sm) {
+    padding: 0px;
+  }
+}
+.category-pane {
+  @include display(flex);
+  flex-wrap: wrap;
+  @include flex-direction(row);
+  justify-content: space-between;
+  margin-top: 30px;
+
+
+  &-wrap {
+    @include display(flex);
+    position: relative;
+    width: 24.5% !important;
+    @include media-breakpoint-down(sm) {
+      width: 32.5% !important;
+    }
+
+    @include media-breakpoint-down(xs) {
+      width: 100% !important;
+    }
+    padding: 0px;
+    margin-bottom: 20px;
+
+    .inner {
+      width: 100%;
+      border: 1px solid #e9e9e9;
+      background: #fff;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      overflow: hidden;
+      padding: 12px 20px 18px;
+
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+          @include display(flex);
+          @include flex-direction(row);
+          -ms-flex-align: center;
+          align-items: center;
+          width: 100%;
+          padding: 0.7rem 1px;
+          border-bottom: 1px solid #F7F7F7;
+          position: relative;
+          border-left: 2px solid transparent;
+          transition: all .4s ease;
+
+          &:last-child {
+            border-bottom: 1px solid transparent;
+          }
+
+          a {
+            font-size: em(12);
+            color: #333;
+            display: block;
+            font-weight: 600;
+
+            &:hover {
+              text-decoration: none;
+              color: #c00;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
+  &-title {
+    font-size: em(14);
+    font-weight: 600;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    margin: 0.67em 0 1em;
+    letter-spacing: -0.1px;
+
+    a {
+      color: #333;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none;
+        color: #c00;
+      }
+    }
+  }
+
+  &-image {
+    height: 180px;
+    width: calc(100% + 40px);
+    background: #ccc;
+    margin-left: -20px;
+  }
+
 }

@@ -21,12 +21,12 @@ get_header(); ?>
 </section> -->
 
 	<div id="primary" class="content-area">
-		<main id="pb-root" class="site-main container-fluid" role="main" style="min-height: 1800px;">
+		<main id="pb-root" class="site-main container-fluid" role="main" style="min-height: 100px;">
 
-		<!--	<section class="row">
+			<!--<section class="row">
 				<div class="col-sm-12" style="height: 90px; margin: 20px 0; text-align: center;">
 					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<!-- Large Leaderboard
+
 				<ins class="adsbygoogle"
 				     style="display:inline-block;width:970px;height:90px"
 				     data-ad-client="ca-pub-7167863529667065"
@@ -35,29 +35,36 @@ get_header(); ?>
 				(adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
 				</div>
-			</section> -->
+			</section>-->
 
 
 			<section class="row first-row" style="margin-top: 20px;">
-				<div class="col-sm-6">
+				<div class="col-md-6 hero-wrap">
 
-					<div class="" id="hero">
 
+					<!--===================== #Hero ==========================-->
 						<?php
-						$args = array( 'numberposts' => 1 );
+						$args = array( 'numberposts' => 1, 'offset' => 0 );
 						$lastposts = get_posts( $args );
 						foreach($lastposts as $post) : setup_postdata($post); ?>
-						<div class="title-box">
-							<h1><?php the_title(); ?></h1>
-							<div class="title-author">
-								by <a href="#">Kelvin Bawa</a>
-							</div>
+
+						<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+						<div class="b-lazy" id="hero" data-src="<?php the_post_thumbnail_url('full'); ?>"> <!--#-->
+
+							<div class="blurry" style="background-image: url('<?php the_post_thumbnail_url('blurry'); ?>')"></div>
 						</div>
-						<img class="b-lazy" src="<?php the_post_thumbnail_url('blurry'); ?>" data-src="<?php the_post_thumbnail_url('full'); ?>" data-src-small="<?php the_post_thumbnail_url('full'); ?>" alt="<?php the_title(); ?>" />
+						</a>
+						<h1 class="hero-title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h1>
+
 
 						<?php endforeach; ?>
 
-					</div>
+
+
+
+
+					<!--===================== #Sub Hero ==========================-->
+
 
 					<div class="sub-hero">
 
@@ -65,13 +72,14 @@ get_header(); ?>
 						$lastposts = get_posts( $args );
 						foreach($lastposts as $post) : setup_postdata($post); ?>
 							<div class="sub-hero_item" >
-								<div class="sub-hero_image b-lazy" data-src="<?php the_post_thumbnail_url('full'); ?>">
+								<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+								<div class="sub-hero_image b-lazy" data-src="<?php the_post_thumbnail_url('full'); ?>" data-src-small="<?php the_post_thumbnail_url('medium'); ?>">
 									<div class="blurry" style="background-image: url('<?php the_post_thumbnail_url('blurry'); ?>')"></div>
 								</div>
 								<div class="title-box">
 									<?php the_title(); ?>
 								</div>
-
+								</a>
 							</div>
 
 						<?php endforeach; ?>
@@ -82,10 +90,11 @@ get_header(); ?>
 
 
 
+					<!--===================== #Latest News ==========================-->
 
 				</div>
-				<div class="col-sm-6">
-					<div class="row" style="height: 100%; position: absolute; width: 100%;">
+				<div class="col-md-6 latest-news-wraper">
+					<div class="row latest-news-row">
 						<div class="col-sm-6 latest-news">
 							<div class="row" style="height: 100%;">
 								<div class="title-header">
@@ -98,7 +107,9 @@ get_header(); ?>
 									$lastposts = get_posts( $args );
 									foreach($lastposts as $post) : setup_postdata($post); ?>
 
-									<li><h3><?php the_title(); ?></h3><div class="_time"><?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?></div></li>
+									<li>
+										<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><h3><?php the_title(); ?></h3></a>
+										<div class="_time"><?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?></div></li>
 
 									<?php endforeach; ?>
 
@@ -111,13 +122,38 @@ get_header(); ?>
 
 									<?php endforeach; ?>
 
+									<li class="read-more">
+										<a href="#">Read More</a>
+									</li>
+
 								</ul>
 							</div>
 
 						</div>
 
 
-						<div class="col-sm-6">content</div>
+
+						<!--===================== #Hero Sidebar ==========================-->
+						<div class="col-sm-6">
+							<div class="row" style="padding-left: 10px; overflow: hidden;">
+								<?php if ( is_active_sidebar( 'home_right_1' ) ) : ?>
+									<div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
+										<?php dynamic_sidebar( 'home_right_1' ); ?>
+									</div><!-- #primary-sidebar -->
+								<?php endif; ?>
+							</div>
+
+
+
+
+						</div>
+
+
+
+
+
+
+
 					</div>
 
 				</div>
@@ -125,6 +161,90 @@ get_header(); ?>
 
 
 		</main><!-- #main -->
+
+
+
+
+		<!--===================== #Opinion -pane ==========================-->
+
+		<section class="pb-root container-fluid sub-section-wrapper">
+
+				<div class="col-md-9">
+					<section class="row .lll">
+					<div class="title-header" style="display: inline-block; padding-right: 20px;">Metro</div>
+
+					fdfd
+
+					</section>
+				</div>
+
+
+
+
+
+				<div class="col-md-3">sdsd</div>
+
+		</section>
+
+
+		<!--===================== #video-pane ==========================-->
+
+		<section class="video-pane-wrapper">
+			<h1 class="video-pane-wrapper_title pb-root container-fluid"><span>Punch</span>videos</h1>
+			<div class="pb-root container-fluid video-pane">
+
+				<div class="col-sm-8">
+					<div class="row">
+
+
+
+						<div data-type="vimeo" data-video-id="195433452"></div>
+
+
+
+
+
+
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="video--playlist">
+						<div class="title-header">Explore More</div>
+						<ul>
+							<li><a href="#">nigerian recession compress</a></li>
+							<li><a href="#">nigerian recession compress</a></li>
+							<li><a href="#">nigerian recession compress</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+		<!--===================== #Categories ==========================-->
+
+		<section class="pb-root container-fluid category-pane-wrapper">
+			<div class="category-pane">
+
+
+				<!-- #Items -->
+
+
+				<?php if ( is_active_sidebar( 'main-cat' )  ) : ?>
+
+						<?php dynamic_sidebar( 'main-cat' ); ?>
+
+				<?php endif; ?>
+
+
+
+
+			</div>
+		</section>
+
+
+
 	</div><!-- #primary -->
 
 <?php

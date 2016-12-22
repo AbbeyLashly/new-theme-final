@@ -41,17 +41,8 @@
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/punch-white.svg" alt="Logo" class="logo-img">
 					</a>
 				</div>
-				<ul>
-					<li><a class="active" href="#0">Intro</a></li>
-					<li><a href="#0">Features</a></li>
-					<li><a href="#0">Photos</a></li>
-					<li><a href="#0">Videos</a></li>
-					<li><a href="#0">Specs</a></li>
-					<li><a href="#0">Support</a></li>
-					<li><a href="#0">Compare</a></li>
-					<li><a href="#0">Buy</a></li>
+				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
 
-				</ul>
 
 
 		</nav> <!-- .cd-secondary-nav -->
