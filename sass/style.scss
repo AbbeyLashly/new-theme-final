@@ -49,7 +49,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 //@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
-//@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:300,400,500,700,900');
 
 
 * {
@@ -141,7 +141,8 @@ html, body  {
 --------------------------------------------------------------*/
 @import "media/media";
 @import "blurry.load";
-@import "plyr/plyr"; 
+@import "plyr/plyr";
+@import "shr";
 
 @media only screen and (max-width:90em){
   #pb-root, .pb-root{
@@ -157,7 +158,7 @@ html, body  {
 
 @media only screen and (max-width:61.9375em){
   #pb-root, .pb-root{
-    max-width:92.0% !important;
+    max-width:98.0% !important;
     margin-top:1.0rem
   }
 }

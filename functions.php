@@ -25,20 +25,204 @@
      return $hidden;
  }
 
+
+
+
+
+
+
+
+ /**
+  * most read.
+  */
+ function wpb_set_post_views($postID) {
+     $count_key = 'wpb_post_views_count';
+     $count = get_post_meta($postID, $count_key, true);
+     if($count==''){
+         $count = 0;
+         delete_post_meta($postID, $count_key);
+         add_post_meta($postID, $count_key, '0');
+     }else{
+         $count++;
+         update_post_meta($postID, $count_key, $count);
+     }
+ }
+ //To keep the count accurate, lets get rid of prefetching
+ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+
+ function wpb_get_post_views($postID){
+     $count_key = 'wpb_post_views_count';
+     $count = get_post_meta($postID, $count_key, true);
+     if($count==''){
+         delete_post_meta($postID, $count_key);
+         add_post_meta($postID, $count_key, '0');
+         return "0 View";
+     }
+     return $count.' Views';
+ }
+
+
+
+
+ /**
+  * Register get_excerpt.
+  */
+ function get_excerpt(){
+ $excerpt = get_the_content();
+ $excerpt = preg_replace(" ([.*?])",'',$excerpt);
+ $excerpt = strip_shortcodes($excerpt);
+ $excerpt = strip_tags($excerpt);
+ $excerpt = substr($excerpt, 0, 150);
+ $excerpt = substr($excerpt, 0, strripos($excerpt, " "));
+ $excerpt = trim(preg_replace( '/s+/', ' ', $excerpt));
+ $excerpt = $excerpt.'...';
+ return $excerpt;
+ }
+
+
+
+ /**
+  * Register meta box(es).
+  */
+  /* Meta box setup function. */
+
+  function add_post_reference() {
+    add_meta_box('post-reference', 'Post Video', 'referenceCallBack', 'post');
+  }
+  add_action('add_meta_boxes', 'add_post_reference');
+
+  function referenceCallBack($post) {
+    wp_nonce_field( 'reference_meta_box', 'reference_nonce' );
+
+    $name_value = get_post_meta( $post->ID, '_post_reference_name', true );
+    $link_value = get_post_meta( $post->ID, '_post_reference_link', true );
+
+    echo '<label for="reference-name">'. 'YouTube video ID' .'</label>';
+    echo '<input type="text" id="reference-name" name="post_reference_name" placeholder="YouTube video ID" value="'.$name_value.'" size="25"/>';
+    echo '<p class="howto">'. 'Add the id of the youtube video' .'</p>';
+
+    echo '<label for="reference-link" style="display: none">'. 'Reference Link' .'</label>';
+    echo '<input type="text" style="display: none" id="reference-link" name="post_reference_link" placeholder="http://www.example.com/" value="'.$link_value.'" size="25"/>';
+    echo '<p class="howto" style="display: none">'. 'Add the link of the reference' .'</p>';
+  }
+
+
+  function save_post_reference( $post_id ) {
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+    }
+
+    if ( ! isset( $_POST['reference_nonce'] ) ) {
+      return;
+    }
+    if ( ! wp_verify_nonce( $_POST['reference_nonce'], 'reference_meta_box' ) ) {
+      return;
+    }
+
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+      return;
+    }
+
+    if ( ! isset( $_POST['post_reference_name'] ) || ! isset( $_POST['post_reference_link'] ) ) {
+      return;
+    }
+
+    $reference_name = sanitize_text_field( $_POST['post_reference_name'] );
+    $reference_link = sanitize_text_field( $_POST['post_reference_link'] );
+
+    update_post_meta( $post_id, '_post_reference_name', $reference_name );
+    update_post_meta( $post_id, '_post_reference_link', $reference_link );
+  }
+  add_action( 'save_post', 'save_post_reference' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* Enable support for Post Formats.
+ *
+ * See: https://codex.wordpress.org/Post_Formats
+ */
+add_theme_support( 'post-formats', array(
+  'image',
+  'video',
+  'gallery',
+) );
+
+
  /**
   * Register our sidebars and widgetized areas.
   *
   */
  function arphabet_widgets_init() {
 
- 	register_sidebar( array(
- 		'name'          => 'Header Sidebar',
- 		'id'            => 'home_right_1',
+
+   register_sidebar( array(
+  		'name'          => 'Post Sidebar',
+  		'id'            => 'post_sidebar',
+  		'before_widget' => '<div>',
+  		'after_widget'  => '</div>',
+  		'before_title'  => '<div class="title-header" style="display: none;">',
+  		'after_title'   => '</div>',
+  	) );
+
+  register_sidebar( array(
+ 		'name'          => 'Header Advert Desktop',
+ 		'id'            => 'header_advert_desk',
+ 		'before_widget' => '<div>',
+ 		'after_widget'  => '</div>',
+ 		'before_title'  => '<div class="title-header" style="display: none;">',
+ 		'after_title'   => '</div>',
+ 	) );
+
+  register_sidebar( array(
+ 		'name'          => 'Header Advert Tablet',
+ 		'id'            => 'header_advert_tab',
+ 		'before_widget' => '<div>',
+ 		'after_widget'  => '</div>',
+ 		'before_title'  => '<div class="title-header" style="display: none;">',
+ 		'after_title'   => '</div>',
+ 	) );
+
+  register_sidebar( array(
+    'name'          => 'Header Advert Tablet Portrait',
+    'id'            => 'header_advert_tab2',
+    'before_widget' => '<div>',
+    'after_widget'  => '</div>',
+    'before_title'  => '<div class="title-header" style="display: none;">',
+    'after_title'   => '</div>',
+  ) );
+
+  register_sidebar( array(
+ 		'name'          => 'Header Advert Mobile',
+ 		'id'            => 'header_advert_mobile',
+ 		'before_widget' => '<div>',
+ 		'after_widget'  => '</div>',
+ 		'before_title'  => '<div class="title-header" style="display: none;">',
+ 		'after_title'   => '</div>',
+ 	) );
+
+
+  register_sidebar( array(
+ 		'name'          => 'Home Sidebar',
+ 		'id'            => 'home_sidebar',
  		'before_widget' => '<div>',
  		'after_widget'  => '</div>',
  		'before_title'  => '<div class="title-header">',
  		'after_title'   => '</div>',
  	) );
+
+
 
  }
  add_action( 'widgets_init', 'arphabet_widgets_init' );
@@ -173,6 +357,7 @@ function punchtheme_scripts() {
 	wp_enqueue_script( 'punchtheme-blazy', get_template_directory_uri() . '/js/blazy.min.js', array('jquery'), '20151215', true );
 	wp_enqueue_script( 'punchtheme-plyr', get_template_directory_uri() . '/js/plyr.js', array('jquery'), '20151215', true );
 	wp_enqueue_script( 'punchtheme-demo', get_template_directory_uri() . '/js/demo.js', '20151215', true );
+	wp_enqueue_script( 'punchtheme-shr', get_template_directory_uri() . '/js/shr.js', '20151215', true );
 	wp_enqueue_script( 'punchtheme-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

@@ -10,6 +10,7 @@
     border: 0;
     border-radius: ($plyr-range-track-height / 2);
     user-select: none;
+    opacity: 0.1;
 }
 @mixin plyr-range-thumb() {
     position: relative;
@@ -21,6 +22,7 @@
     transition: background .2s ease, border .2s ease, transform .2s ease;
     box-shadow: $plyr-range-thumb-shadow;
     box-sizing: border-box;
+    opacity: 0.1;
 }
 @mixin plyr-range-thumb-active() {
     background: $plyr-range-thumb-active-bg;

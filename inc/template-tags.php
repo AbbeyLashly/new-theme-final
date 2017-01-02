@@ -25,7 +25,7 @@ function punchtheme_posted_on() {
 	);
 
 	$posted_on = sprintf(
-		esc_html_x( 'Posted on %s', 'post date', 'punchtheme' ),
+		esc_html_x( '%s', 'post date', 'punchtheme' ),
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
@@ -34,7 +34,7 @@ function punchtheme_posted_on() {
 		'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
 	);
 
-	echo '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
+	echo '<span class="byline"> ' . $byline . '</span>' . ' <span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
 
 }
 endif;
@@ -49,13 +49,13 @@ function punchtheme_entry_footer() {
 		/* translators: used between list items, there is a space after the comma */
 		$categories_list = get_the_category_list( esc_html__( ', ', 'punchtheme' ) );
 		if ( $categories_list && punchtheme_categorized_blog() ) {
-			printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'punchtheme' ) . '</span>', $categories_list ); // WPCS: XSS OK.
+			printf( '<span class="post-cat-links">' . esc_html__( '%1$s', 'punchtheme' ) . '</span>', $categories_list ); // WPCS: XSS OK.
 		}
 
 		/* translators: used between list items, there is a space after the comma */
-		$tags_list = get_the_tag_list( '', esc_html__( ', ', 'punchtheme' ) );
+		$tags_list = get_the_tag_list( '', esc_html__( ' ', 'punchtheme' ) );
 		if ( $tags_list ) {
-			printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'punchtheme' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+			printf( '<span class="tags-links">' . esc_html__( ' %1$s', 'punchtheme' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
 	}
 
@@ -107,6 +107,15 @@ function punchtheme_categorized_blog() {
 		return false;
 	}
 }
+
+
+/** Featured image with caption **/
+function post_featured_image(){
+	the_post_thumbnail();
+	echo  '<span class="caption">' . get_post(get_post_thumbnail_id())->post_excerpt . '</span>';
+	//echo get_post(get_post_thumbnail_id())->post_excerpt;
+}
+
 
 /**
  * Flush out the transients used in punchtheme_categorized_blog.

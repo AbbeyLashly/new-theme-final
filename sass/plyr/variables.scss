@@ -54,7 +54,7 @@ $plyr-audio-progress-bg:                transparentize(#C6D6DB, .33) !default;
 $plyr-audio-progress-buffered-bg:       $plyr-audio-progress-bg !default;
 
 // Range sliders
-$plyr-range-track-height:               8px !default;
+$plyr-range-track-height:               3px !default;
 $plyr-range-thumb-height:               floor($plyr-range-track-height * 2) !default;
 $plyr-range-thumb-width:                floor($plyr-range-track-height * 2) !default;
 $plyr-range-thumb-bg:                   #fff !default;

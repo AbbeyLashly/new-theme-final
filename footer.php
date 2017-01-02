@@ -16,70 +16,27 @@
 
 
 	<nav id="cd-lateral-nav">
-		<ul class="cd-navigation">
-			<li class="item-has-children">
-				<a href="#0">Services</a>
-				<ul class="sub-menu">
-					<li><a href="#0">Brand</a></li>
-					<li><a href="#0">Web Apps</a></li>
-					<li><a href="#0">Mobile Apps</a></li>
-				</ul>
-			</li> <!-- item-has-children -->
+		<!-- test nav -->
 
-			<li class="item-has-children">
-				<a href="#0">Products</a>
-				<ul class="sub-menu">
-					<li><a href="#0">Product 1</a></li>
-					<li><a href="#0">Product 2</a></li>
-					<li><a href="#0">Product 3</a></li>
-					<li><a href="#0">Product 4</a></li>
-					<li><a href="#0">Product 5</a></li>
-				</ul>
-			</li> <!-- item-has-children -->
 
-			<li class="item-has-children">
-				<a href="#0">Stockists</a>
-				<ul class="sub-menu">
-					<li><a href="#0">London</a></li>
-					<li><a href="#0">New York</a></li>
-					<li><a href="#0">Milan</a></li>
-					<li><a href="#0">Paris</a></li>
-				</ul>
-			</li> <!-- item-has-children -->
-		</ul> <!-- cd-navigation -->
+			<?php wp_nav_menu( array( 'theme_location' => 'section', 'container' => 'ul', 'menu' => '','menu_class' => 'cd-navigation', 'container_class' => 'cd-navigation' ) ); ?>
+
+
 
 		<ul class="cd-navigation cd-single-item-wrapper">
-			<li><a href="#0">Tour</a></li>
-			<li><a href="#0">Login</a></li>
-			<li><a href="#0">Register</a></li>
-			<li><a href="#0">Pricing</a></li>
-			<li><a href="#0">Support</a></li>
+			<li><a href="#0">Privacy Policy</a></li>
+			<li><a href="#0">Terms of Use</a></li>
+			<li><a href="#0">About</a></li>
 		</ul> <!-- cd-single-item-wrapper -->
 
-		<ul class="cd-navigation cd-single-item-wrapper">
-			<li><a class="current" href="#0">Journal</a></li>
-			<li><a href="#0">FAQ</a></li>
-			<li><a href="#0">Terms &amp; Conditions</a></li>
-			<li><a href="#0">Careers</a></li>
-			<li><a href="#0">Students</a></li>
-		</ul> <!-- cd-single-item-wrapper -->
-
-		<div class="cd-navigation socials">
-			<a class="cd-twitter cd-img-replace" href="#0">Twitter</a>
-			<a class="cd-github cd-img-replace" href="#0">Git Hub</a>
-			<a class="cd-facebook cd-img-replace" href="#0">Facebook</a>
-			<a class="cd-google cd-img-replace" href="#0">Google Plus</a>
-		</div> <!-- socials -->
 	</nav>
 
 
 
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'punchtheme' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'punchtheme' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'punchtheme' ), 'punchtheme', '<a href="http://punchng.com" rel="designer">Punch Newspapers</a>' ); ?>
+		<div class="site-info pb-root container-fluid">
+			<a href="http://punchng.com" rel="designer">punchng.com</a> © 	1971-<?php echo date("Y"); ?> The Punch newspaper
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
@@ -117,6 +74,68 @@
 
 
 
+		<script>
+		(function(d, u){
+				var x = new XMLHttpRequest(),
+						b = d.body;
+
+				// Check for CORS support
+				// If you're loading from same domain, you can remove the if statement
+				// XHR for Chrome/Firefox/Opera/Safari
+				if ("withCredentials" in x) {
+						x.open("GET", u, true);
+				}
+				// XDomainRequest for older IE
+				else if(typeof XDomainRequest != "undefined") {
+						x = new XDomainRequest();
+						x.open("GET", u);
+				}
+				else {
+						return;
+				}
+
+				x.send();
+				x.onload = function(){
+						var c = d.createElement("div");
+						c.setAttribute("hidden", "");
+						c.innerHTML = x.responseText;
+						b.insertBefore(c, b.childNodes[0]);
+				}
+		})(document, "https://cdn.shr.one/0.1.9/sprite.svg");
+		</script>
+
+		<script>shr.setup({
+		    debug: !0
+		});</script>
+
+
+		<?php
+
+		if ( ! is_user_logged_in() ) {
+			?>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$(document).bind("cut copy paste",function(e) {
+						e.preventDefault();
+				});
+
+				//Disable full page
+		    $("body").on("contextmenu",function(e){
+		        return false;
+		    });
+
+			});
+			</script>
+			<?php
+
+		} else {
+			?>
+
+			<?php
+		     //echo "You are viewing the WordPress Administration Panels";
+		}
+
+		?>
 
 </body>
 </html>

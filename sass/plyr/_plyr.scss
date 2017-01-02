@@ -63,52 +63,12 @@
         margin: 0;
         padding: 0;
         vertical-align: middle;
-
         appearance: none;
         cursor: pointer;
         border: none;
-        background: transparent;
+        background: rgba(#c00, 0.1);
+        opacity: 0.1;
 
-        // WebKit
-        &::-webkit-slider-runnable-track {
-            @include plyr-range-track();
-        }
-        &::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            margin-top: -(($plyr-range-thumb-height - $plyr-range-track-height) / 2);
-            @include plyr-range-thumb();
-        }
-
-        // Mozilla
-        &::-moz-range-track {
-            @include plyr-range-track();
-        }
-        &::-moz-range-thumb {
-            @include plyr-range-thumb();
-        }
-
-        // Microsoft
-        &::-ms-track {
-            height: $plyr-range-track-height;
-            background: transparent;
-            border: 0;
-            color: transparent;
-        }
-        &::-ms-fill-upper {
-            @include plyr-range-track();
-        }
-        &::-ms-fill-lower {
-            @include plyr-range-track();
-            background: $plyr-range-selected-bg;
-        }
-        &::-ms-thumb {
-            @include plyr-range-thumb();
-            // For some reason, Edge uses the -webkit margin above
-            margin-top: 0;
-        }
-        &::-ms-tooltip {
-            display: none;
-        }
 
         // Focus styles
         &:focus {
