@@ -154,14 +154,23 @@ $category_id = get_cat_ID(single_cat_title('', false));
 
         		<ul style="margin-bottom: 20px; height: auto;">
         			<?php
-        			function filter_where($where = '') {
-        					//posts in the last 30 days
-        					$where .= " AND post_date > '" . date('Y-m-d', strtotime('-0 day')) . "'";
-        					return $where;
-        			}
-        			add_filter('posts_where', 'filter_where');
+              $today = getdate();
+              $query_args = array(
+                'posts_per_page' => '-1',
+                'meta_key' => 'wpb_post_views_count',
+                'orderby' => 'meta_value_num',
+                'order' => 'DESC',
+                'date_query' => array(
+                  array(
+                      'year'  => $today['year'],
+                      'month' => $today['mon'],
+                      'day'   => $today['mday'],
+                  ),
+                ),
+              );
 
-        				$popularpost = new WP_Query( array( 'posts_per_page' => 4, 'meta_key' => 'wpb_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
+
+              $popularpost = new WP_Query( $query_args );
         				while ( $popularpost->have_posts() ) : $popularpost->the_post();
         				?>
 
@@ -183,7 +192,7 @@ $category_id = get_cat_ID(single_cat_title('', false));
 
         		</ul>
 
-            
+
         		<?php if ( is_active_sidebar( 'post_sidebar' ) ) : ?>
         			<div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
         				<?php dynamic_sidebar( 'post_sidebar' ); ?>

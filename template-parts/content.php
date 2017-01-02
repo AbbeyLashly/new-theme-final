@@ -29,7 +29,7 @@
 			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
 		endif;
 		?>
-		<?php //echo wpb_get_post_views(get_the_ID()); ?>
+		<?php echo wpb_get_post_views(get_the_ID()); ?>
 
 		<?php
 		if ( 'post' === get_post_type() ) : ?>
@@ -122,7 +122,22 @@
 
 
 	<footer class="entry-footer">
-		<?php punchtheme_entry_footer(); ?>
+		<?php //punchtheme_entry_footer(); ?>
+
+<div class="tags-links">
+
+
+		<?php
+			$posttags = get_the_tags();
+			if ($posttags) {
+			  foreach($posttags as $tag) {
+					?>
+					<a ><?php echo $tag->name . ' '; ?></a>
+					<?php
+			    }
+			}
+			?>
+		</div>
 	</footer><!-- .entry-footer -->
 	</div>
 
@@ -200,14 +215,23 @@
 
 		<ul style="margin-bottom: 20px;">
 			<?php
-			function filter_where($where = '') {
-					//posts in the last 30 days
-					$where .= " AND post_date > '" . date('Y-m-d', strtotime('-0 day')) . "'";
-					return $where;
-			}
-			add_filter('posts_where', 'filter_where');
+			$today = getdate();
+			$query_args = array(
+				'posts_per_page' => '-1',
+				'meta_key' => 'wpb_post_views_count',
+				'orderby' => 'meta_value_num',
+				'order' => 'DESC',
+				'date_query' => array(
+					array(
+							'year'  => $today['year'],
+							'month' => $today['mon'],
+							'day'   => $today['mday'],
+					),
+				),
+			);
 
-				$popularpost = new WP_Query( array( 'posts_per_page' => 4, 'meta_key' => 'wpb_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
+
+			$popularpost = new WP_Query( $query_args );
 				while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				?>
 
